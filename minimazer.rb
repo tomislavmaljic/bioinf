@@ -13,6 +13,23 @@ def remove_duplicates(array)
   return dup_array
 end
 
+def left_end(str)
+  array = []
+  (k..l).each do |i|
+    array.push(min_substring(str[0:i]))
+  end
+  return array
+end
+
+def right_end(str)
+  array = []
+  (0..(l-k)).each do |i|
+    array.push(min_substring(str[i:l]))
+  end
+  return array
+end
+
+
 
 #main
 start = Time.now
