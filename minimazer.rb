@@ -31,3 +31,18 @@ for str in right_end(inputFile[len(inputFile)-l+1]:)
 end
 
 minimazers = remove_duplicates(minimazers)
+
+outputFile = File.open ("output.txt", "w")
+for m in minimazers
+  outputFile.write(m)
+  outputFile.write("\r")
+end
+outputFile.close
+
+finish = Time.now
+
+total_time = finish -
+puts "Total time elapsed: " + total_time + " seconds"
+
+total_memory = `ps -o rss -p #{$$}`.strip.split.last.to_i * 1024 * 1024
+puts "Total memory usage: " + total_memory + "KB."
