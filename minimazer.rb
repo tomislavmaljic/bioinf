@@ -1,7 +1,7 @@
 #initialization
 input = ARGV[0]
-w = int(ARGV[1])
-k = int(ARGV[2])
+w = ARGV[1].to_i
+k = ARGV[2].to_i
 
 def remove_duplicates(array)
   dup_array = []
@@ -16,7 +16,7 @@ end
 def left_end(str)
   array = []
   (k..l).each do |i|
-    array.push(min_substring(str[0:i]))
+    array.push(min_substring(str[0..i]))
   end
   return array
 end
@@ -24,7 +24,7 @@ end
 def right_end(str)
   array = []
   (0..(l-k)).each do |i|
-    array.push(min_substring(str[i:l]))
+    array.push(min_substring(str[i..l]))
   end
   return array
 end
@@ -32,7 +32,7 @@ end
 def min_substring (str)
   array = []
   (0..(str.length-k+1)).each do |i|
-    array.push(str[i:i+k])
+    array.push(str[i..(i+k)])
   end
   array.sort
   return array[0]
@@ -41,17 +41,21 @@ end
 
 #main
 start = Time.now
-inputFile = File.read(input).gsub("\n","").gsub("\r","")
+inputFile = File.open(input, "r")
+input = inputFile.read.gsub("\n","").gsub("\r","")
+inputFile.close
 
 l = w + k - 1
 minimazers = []
 
-for str in left_end(inputFile[0:l])
+
+
+for str in left_end(inputFile[0..l])
   minimazers.push(str)
 end
 
-for i in range (0, inputFile.length-l+1)
-  minimazers.push(str)
+(0..(input.length-l+1).each do |m|
+  minimazers.push(min_substring(input[m..(m+l)]))
 end
 
 for str in right_end(inputFile[len(inputFile)-l+1]:)
@@ -60,17 +64,16 @@ end
 
 minimazers = remove_duplicates(minimazers)
 
-outputFile = File.open ("output.txt", "w")
-for m in minimazers
-  outputFile.write(m)
-  outputFile.write("\r")
+outputFile = File.open("output.txt", "w")
+  minimazers.each do |m|
+	outputFile.puts m
 end
 outputFile.close
 
 finish = Time.now
 
 total_time = finish -
-puts "Total time elapsed: " + total_time + " seconds"
+puts "Total time elapsed: " + total_time.to_s + " seconds"
 
-total_memory = `ps -o rss -p #{$$}`.strip.split.last.to_i * 1024 * 1024
-puts "Total memory usage: " + total_memory + "KB."
+total_memory = `ps -o rss -p #{$$}`.strip.split.last.to_i
+puts "Total memory usage: " + total_memory.to_s + "KB."
