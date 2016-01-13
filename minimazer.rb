@@ -29,11 +29,22 @@ def right_end(str)
   return array
 end
 
+def min_substring (str)
+  array = []
+  (0..(str.length-k+1)).each do |i|
+    array.push(str[i:i+k])
+  end
+  array.sort
+  return array[0]
+end
 
 
 #main
 start = Time.now
 inputFile = File.read(input).gsub("\n","").gsub("\r","")
+
+l = w + k - 1
+minimazers = []
 
 for str in left_end(inputFile[0:l])
   minimazers.push(str)
