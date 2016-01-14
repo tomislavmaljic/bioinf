@@ -1,4 +1,3 @@
-
 def remove_duplicates(array)
   dup_array = []
   for str in array
@@ -35,36 +34,37 @@ def min_substring (str, k)
 end
 
 #main
-#initialization
-input_name = ARGV[0]
+file_name = ARGV[0]
 w = ARGV[1].to_i
-k = ARGV[2].to_i
+k = ARGV[2].to_i 
 l = w + k - 1
 start = Time.now
-inputFile = File.open(input_name, "r")
+inputFile = File.open(file_name, "r")
 input = inputFile.read.gsub("\n","").gsub("\r","")
 inputFile.close
 
-minimazers = []
-
+minimizers = []
 
 
 for str in left_end(input[0..l], k, l)
-  minimazers.push(str)
+  minimizers.push(str)
 end
 
+puts minimizers
+
 (0..(input.length-l+1)).each do |m|
-  minimazers.push(min_substring(input[m..(m+l)], k))
+  minimizers.push(min_substring(input[m..(m+l)], k))
 end
 
 for str in right_end(input[(input.length-l+1)..(input.length+1)], k, l)
-  minimazers.push(str)
+  minimizers.push(str)
+  puts str
 end
 
-minimazers = remove_duplicates(minimazers)
+minimizers = remove_duplicates(minimizers)
 
 outputFile = File.open("output.txt", "w")
-  minimazers.each do |m|
+  minimizers.each do |m|
 	   outputFile.puts m
   end
 outputFile.close
