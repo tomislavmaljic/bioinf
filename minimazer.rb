@@ -33,8 +33,8 @@ def min_substring (str, k)
   (0..(str.length-k)).each do |i|
     array.push(str[i..(i+k-1)])
   end
-  array.sort
-  return array[0]
+  min_array = array.sort
+  return min_array[0]
 end
 
 #main
@@ -55,10 +55,12 @@ for str in left_end(input[0..l-1], k, l)
   minimizers.push(str)
 end
 
+
 #find minimizer
 (0..(input.length-l)).each do |m|
   minimizers.push(min_substring(input[m..(m+l-1)], k))
 end
+
 
 #find minimizer on right end
 for str in right_end(input[(input.length-l+1)..(input.length)], k, l)
